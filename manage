@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+from manage import Manager
+from app import db, app
+
+
+manager = Manager()
+
+
+@manager.command
+def build_db():
+    """Builds all tables."""
+    db.create_all()
+    return 'Tables successfully built'
+
+
+@manager.command
+def drop_db():
+    """Drops all tables."""
+    db.drop_all()
+    return 'Tables successfully dropped'
+
+
+@manager.command
+def run(port=5002):
+    """Starts the app."""
+    return app.run(port=port)
+
+
+if __name__ == '__main__':
+    manager.main()

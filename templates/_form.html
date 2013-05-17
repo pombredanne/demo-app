@@ -1,0 +1,21 @@
+{% macro render_form(form, loop=None) %}
+{% for field in form %}
+{% if field.widget.__class__.__name__ == "HiddenInput" %}
+    {{ field }}
+{% elif field.type == "FormField" %}
+    </fieldset>
+    {{ render_form(field, True) }}
+    {% if loop and not loop.last %}<fieldset>{% endif %}
+{% else %}
+{% if field.errors %}
+ <ul class="errors">
+     {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+ </ul>
+{% endif %}
+<p class="{{field.name}}_holder" class="field{% if field.errors %} error{% endif %}{% if field.flags.required %} required{% endif %}">
+    {{ field.label }}
+    {{ field }}
+</p>
+{% endif %}
+{% endfor %}
+{% endmacro %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% from '_form.html' import render_form %}
+
+
+{% block content %}
+    <form action="" method="post">
+        {{ render_form(form) }}
+       <p><input type="submit" value="Send" /></p>
+    </form>
+{% endblock %}
